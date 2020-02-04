@@ -18,7 +18,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function user_can_add_a_friend_to_a_group()
     {
-
+        Event::fake();
         $sender    = createUser();
         $recipient = createUser();
 
@@ -43,6 +43,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function user_cannot_add_a_non_friend_to_a_group()
     {
+        Event::fake();
         $sender   = createUser();
         $stranger = createUser();
 
@@ -75,6 +76,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function user_cannot_remove_a_non_existing_friend_from_group()
     {
+        Event::fake();
         $sender     = createUser();
         $recipient  = createUser();
         $recipient2 = createUser();
@@ -88,6 +90,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function user_can_remove_a_friend_from_all_groups()
     {
+        Event::fake();
         $sender    = createUser();
         $recipient = createUser();
 
@@ -106,6 +109,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function it_returns_friends_of_a_group()
     {
+        Event::fake();
         $sender     = createUser();
         $recipients = createUser([], 10);
 
@@ -128,6 +132,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function it_returns_all_user_friendships_by_group()
     {
+        Event::fake();
         $sender     = createUser();
         $recipients = createUser([], 5);
 
@@ -164,6 +169,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function it_returns_accepted_user_friendships_by_group()
     {
+        Event::fake();
         $sender     = createUser();
         $recipients = createUser([], 4);
 
@@ -185,6 +191,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function it_returns_accepted_user_friendships_number_by_group()
     {
+        Event::fake();
         $sender     = createUser();
         $recipients = createUser([], 20)->chunk(5);
 
@@ -206,6 +213,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function it_returns_user_friends_by_group_per_page()
     {
+        Event::fake();
         $sender     = createUser();
         $recipients = createUser([], 6);
 
