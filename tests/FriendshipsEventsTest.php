@@ -10,15 +10,10 @@ use Mockery;
 
 class FriendshipsEventsTest extends TestCase
 {
-    // use DatabaseTransactions;
-
-    public function tearDown(): void {
-        Mockery::close();
-    }
-
     /** @test */
     public function friend_request_is_sent()
     {
+        Event::fake();
         $sender    = createUser();
         $recipient = createUser();
 
@@ -30,10 +25,12 @@ class FriendshipsEventsTest extends TestCase
     /** @test */
     public function friend_request_is_accepted()
     {
+        Event::fake();
         $sender    = createUser();
         $recipient = createUser();
 
         $sender->befriend($recipient);
+
         Event::shouldReceive('dispatch')->once()->withArgs(['friendships.accepted', Mockery::any()]);
 
         $recipient->acceptFriendRequest($sender);
@@ -42,6 +39,7 @@ class FriendshipsEventsTest extends TestCase
     /** @test */
     public function friend_request_is_denied()
     {
+        Event::fake();
         $sender    = createUser();
         $recipient = createUser();
 
@@ -54,6 +52,7 @@ class FriendshipsEventsTest extends TestCase
     /** @test */
     public function friend_is_blocked()
     {
+        Event::fake();
         $sender    = createUser();
         $recipient = createUser();
 
@@ -67,6 +66,7 @@ class FriendshipsEventsTest extends TestCase
     /** @test */
     public function friend_is_unblocked()
     {
+        Event::fake();
         $sender    = createUser();
         $recipient = createUser();
 
@@ -81,6 +81,7 @@ class FriendshipsEventsTest extends TestCase
     /** @test */
     public function friendship_is_cancelled()
     {
+        Event::fake();
         $sender    = createUser();
         $recipient = createUser();
 
