@@ -2,23 +2,46 @@
 
 namespace Tests;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Event;
+use Orchestra\Testbench\TestCase;
 
 /*
  * Test User Personal Friend Groups
 */
 class FriendshipsGroupsTest extends TestCase
 {
-    use DatabaseTransactions;
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->loadLaravelMigrations(['--database' => 'testing']);
+        $this->loadMigrationsFrom([
+            '--database' => 'testing',
+            '--path' => realpath(dirname(__DIR__).'/tests/database/migrations'),
+        ]);
+        $this->withFactories(realpath(dirname(__DIR__).'/database/factories'));
+    }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        // Setup default database to use sqlite :memory:
+        $app['config']->set('friendships.tables.fr_groups_pivot', 'user_friendship_groups');
+        $app['config']->set('friendships.tables.fr_pivot', 'friendships');
+        $app['config']->set('friendships.groups.acquaintances', 0);
+        $app['config']->set('friendships.groups.close_friends', 1);
+        $app['config']->set('friendships.groups.family', 2);
+    }
+
 
 
     /** @test */
     public function user_can_add_a_friend_to_a_group()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -43,7 +66,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function user_cannot_add_a_non_friend_to_a_group()
     {
-        Event::fake();
+
         $sender   = createUser();
         $stranger = createUser();
 
@@ -54,7 +77,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function user_can_remove_a_friend_from_group()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -76,7 +99,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function user_cannot_remove_a_non_existing_friend_from_group()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipient  = createUser();
         $recipient2 = createUser();
@@ -90,7 +113,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function user_can_remove_a_friend_from_all_groups()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -109,7 +132,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function it_returns_friends_of_a_group()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 10);
 
@@ -132,7 +155,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function it_returns_all_user_friendships_by_group()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 5);
 
@@ -169,7 +192,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function it_returns_accepted_user_friendships_by_group()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 4);
 
@@ -191,7 +214,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function it_returns_accepted_user_friendships_number_by_group()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 20)->chunk(5);
 
@@ -213,7 +236,7 @@ class FriendshipsGroupsTest extends TestCase
     /** @test */
     public function it_returns_user_friends_by_group_per_page()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 6);
 

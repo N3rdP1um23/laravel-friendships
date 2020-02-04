@@ -2,14 +2,37 @@
 
 namespace Tests;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Event;
+use Orchestra\Testbench\TestCase;
 
 class FriendshipsTest extends TestCase
 {
-    // use DatabaseTransactions;
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->loadLaravelMigrations(['--database' => 'testing']);
+        $this->loadMigrationsFrom([
+            '--database' => 'testing',
+            '--path' => realpath(dirname(__DIR__).'/tests/database/migrations'),
+        ]);
+        $this->withFactories(realpath(dirname(__DIR__).'/database/factories'));
+    }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        // Setup default database to use sqlite :memory:
+        $app['config']->set('friendships.tables.fr_groups_pivot', 'user_friendship_groups');
+        $app['config']->set('friendships.tables.fr_pivot', 'friendships');
+        $app['config']->set('friendships.groups.acquaintances', 0);
+        $app['config']->set('friendships.groups.close_friends', 1);
+        $app['config']->set('friendships.groups.family', 2);
+    }
+
 
     /** @test */
     public function user_can_send_a_friend_request()
@@ -38,7 +61,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_can_send_a_friend_request_if_frienship_is_denied()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -53,7 +76,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_can_remove_a_friend_request()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -77,7 +100,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_is_friend_with_another_user_if_accepts_a_friend_request()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
         //send fr
@@ -94,7 +117,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_is_not_friend_with_another_user_until_he_accepts_a_friend_request()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
         //send fr
@@ -107,7 +130,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_has_friend_request_from_another_user_if_he_received_a_friend_request()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
         //send fr
@@ -120,7 +143,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_has_sent_friend_request_to_this_user_if_he_already_sent_request()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
         //send fr
@@ -133,7 +156,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_has_not_friend_request_from_another_user_if_he_accepted_the_friend_request()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
         //send fr
@@ -148,7 +171,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_cannot_accept_his_own_friend_request()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -162,7 +185,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_can_deny_a_friend_request()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
         $sender->befriend($recipient);
@@ -179,7 +202,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_can_block_another_user()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -195,7 +218,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_can_unblock_a_blocked_user()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -209,7 +232,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_block_is_permanent_unless_blocker_decides_to_unblock()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -236,7 +259,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_can_send_friend_request_to_user_who_is_blocked()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -250,7 +273,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function it_returns_all_user_friendships()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 3);
 
@@ -267,7 +290,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function it_returns_accepted_user_friendships_number()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 3);
 
@@ -284,7 +307,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function it_returns_accepted_user_friendships()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 3);
 
@@ -301,7 +324,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function it_returns_only_accepted_user_friendships()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 4);
 
@@ -323,7 +346,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function it_returns_pending_user_friendships()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 3);
 
@@ -338,7 +361,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function it_returns_denied_user_friendships()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 3);
 
@@ -355,7 +378,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function it_returns_blocked_user_friendships()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 3);
 
@@ -372,7 +395,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function it_returns_user_friends()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 4);
 
@@ -395,7 +418,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function it_returns_user_friends_per_page()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 6);
 
@@ -423,7 +446,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function it_returns_user_friends_of_friends()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 2);
         $fofs       = createUser([], 5)->chunk(3);
@@ -451,7 +474,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function it_returns_user_mutual_friends()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 2);
         $fofs       = createUser([], 5)->chunk(3);
@@ -481,7 +504,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function it_returns_user_mutual_friends_per_page()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 2);
         $fofs       = createUser([], 8)->chunk(5);
@@ -514,7 +537,7 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function it_returns_user_mutual_friends_number()
     {
-        Event::fake();
+
         $sender     = createUser();
         $recipients = createUser([], 2);
         $fofs       = createUser([], 5)->chunk(3);

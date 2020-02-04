@@ -2,30 +2,51 @@
 
 namespace Tests;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Event;
 use Mockery;
+use Orchestra\Testbench\TestCase;
 
 class FriendshipsEventsTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->loadLaravelMigrations(['--database' => 'testing']);
+        $this->loadMigrationsFrom([
+            '--database' => 'testing',
+            '--path' => realpath(dirname(__DIR__).'/tests/database/migrations'),
+        ]);
+        $this->withFactories(realpath(dirname(__DIR__).'/database/factories'));
+    }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        $app['config']->set('friendships.tables.fr_groups_pivot', 'user_friendship_groups');
+        $app['config']->set('friendships.tables.fr_pivot', 'friendships');
+        $app['config']->set('friendships.groups.acquaintances', 0);
+        $app['config']->set('friendships.groups.close_friends', 1);
+        $app['config']->set('friendships.groups.family', 2);
+    }
+
     /** @test */
     public function friend_request_is_sent()
     {
-        Event::fake();
         $sender    = createUser();
         $recipient = createUser();
 
         Event::shouldReceive('dispatch')->once()->withArgs(['friendships.sent', Mockery::any()]);
-
         $sender->befriend($recipient);
     }
 
     /** @test */
     public function friend_request_is_accepted()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -39,7 +60,7 @@ class FriendshipsEventsTest extends TestCase
     /** @test */
     public function friend_request_is_denied()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -52,7 +73,7 @@ class FriendshipsEventsTest extends TestCase
     /** @test */
     public function friend_is_blocked()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -66,7 +87,7 @@ class FriendshipsEventsTest extends TestCase
     /** @test */
     public function friend_is_unblocked()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
@@ -81,7 +102,7 @@ class FriendshipsEventsTest extends TestCase
     /** @test */
     public function friendship_is_cancelled()
     {
-        Event::fake();
+
         $sender    = createUser();
         $recipient = createUser();
 
