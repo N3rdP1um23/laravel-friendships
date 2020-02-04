@@ -20,7 +20,7 @@ class Friendship extends Model
     /**
      * @var array
      */
-    protected $with = ['sender', 'recipient'];
+    protected $with = ['sender', 'recipient', 'groups'];
 
     /**
      * @param array $attributes
