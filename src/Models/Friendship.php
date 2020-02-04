@@ -18,6 +18,11 @@ class Friendship extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
+     * @var array
+     */
+    protected $with = ['sender', 'recipient'];
+
+    /**
      * @param array $attributes
      */
     public function __construct(array $attributes = array())

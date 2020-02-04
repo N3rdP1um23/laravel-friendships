@@ -11,7 +11,7 @@ use Mockery;
 class FriendshipsEventsTest extends TestCase
 {
     // use DatabaseTransactions;
-    
+
     /** @test */
     public function friend_request_is_sent()
     {
