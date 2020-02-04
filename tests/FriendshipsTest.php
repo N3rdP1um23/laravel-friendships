@@ -14,7 +14,6 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_can_send_a_friend_request()
     {
-        Event::fake();
         $sender    = createUser();
         $recipient = createUser();
 
@@ -26,7 +25,6 @@ class FriendshipsTest extends TestCase
     /** @test */
     public function user_can_not_send_a_friend_request_if_frienship_is_pending()
     {
-        Event::fake();
         $sender    = createUser();
         $recipient = createUser();
         $sender->befriend($recipient);
