@@ -12,6 +12,10 @@ class FriendshipsEventsTest extends TestCase
 {
     // use DatabaseTransactions;
 
+    public function tearDown() {
+        \Mochery::close();
+    }
+
     /** @test */
     public function friend_request_is_sent()
     {
@@ -21,8 +25,6 @@ class FriendshipsEventsTest extends TestCase
         Event::shouldReceive('dispatch')->once()->withArgs(['friendships.sent', Mockery::any()]);
 
         $sender->befriend($recipient);
-
-        Mockery::close();
     }
 
     /** @test */
@@ -35,8 +37,6 @@ class FriendshipsEventsTest extends TestCase
         Event::shouldReceive('dispatch')->once()->withArgs(['friendships.accepted', Mockery::any()]);
 
         $recipient->acceptFriendRequest($sender);
-
-        Mockery::close();
     }
 
     /** @test */
@@ -50,7 +50,7 @@ class FriendshipsEventsTest extends TestCase
 
         $recipient->denyFriendRequest($sender);
 
-        Mockery::close();
+
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class FriendshipsEventsTest extends TestCase
 
         $recipient->blockFriend($sender);
 
-        Mockery::close();
+
     }
 
     /** @test */
@@ -81,7 +81,7 @@ class FriendshipsEventsTest extends TestCase
 
         $recipient->unblockFriend($sender);
 
-        Mockery::close();
+
     }
 
     /** @test */
@@ -96,6 +96,6 @@ class FriendshipsEventsTest extends TestCase
 
         $recipient->unfriend($sender);
 
-        Mockery::close();
+
     }
 }
