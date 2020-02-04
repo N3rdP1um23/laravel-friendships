@@ -12,7 +12,7 @@ class FriendshipsEventsTest extends TestCase
 {
     // use DatabaseTransactions;
 
-    public function tearDown() {
+    public function tearDown(): void {
         Mockery::close();
     }
 
