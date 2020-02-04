@@ -27,6 +27,7 @@ install:
 
 script:
   - vendor/bin/phpunit
+  - bash <(curl -s https://codecov.io/bash)
 
 after_script:
   - vendor/bin/test-reporter
