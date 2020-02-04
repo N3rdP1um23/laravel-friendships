@@ -12,14 +12,6 @@ class FriendshipsEventsTest extends TestCase
 {
     // use DatabaseTransactions;
 
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->sender    = createUser();
-        $this->recipient = createUser();
-    }
-
     public function tearDown()
     {
         Mockery::close();
@@ -28,57 +20,75 @@ class FriendshipsEventsTest extends TestCase
     /** @test */
     public function friend_request_is_sent()
     {
+        $sender    = createUser();
+        $recipient = createUser();
+
         Event::shouldReceive('dispatch')->once()->withArgs(['friendships.sent', Mockery::any()]);
 
-        $this->sender->befriend($this->recipient);
+        $sender->befriend($recipient);
     }
 
     /** @test */
     public function friend_request_is_accepted()
     {
-        $this->sender->befriend($this->recipient);
+        $sender    = createUser();
+        $recipient = createUser();
+
+        $sender->befriend($recipient);
         Event::shouldReceive('dispatch')->once()->withArgs(['friendships.accepted', Mockery::any()]);
 
-        $this->recipient->acceptFriendRequest($this->sender);
+        $recipient->acceptFriendRequest($sender);
     }
 
     /** @test */
     public function friend_request_is_denied()
     {
-        $this->sender->befriend($this->recipient);
+        $sender    = createUser();
+        $recipient = createUser();
+
+        $sender->befriend($recipient);
         Event::shouldReceive('dispatch')->once()->withArgs(['friendships.denied', Mockery::any()]);
 
-        $this->recipient->denyFriendRequest($this->sender);
+        $recipient->denyFriendRequest($sender);
     }
 
     /** @test */
     public function friend_is_blocked()
     {
-        $this->sender->befriend($this->recipient);
-        $this->recipient->acceptFriendRequest($this->sender);
+        $sender    = createUser();
+        $recipient = createUser();
+
+        $sender->befriend($recipient);
+        $recipient->acceptFriendRequest($sender);
         Event::shouldReceive('dispatch')->once()->withArgs(['friendships.blocked', Mockery::any()]);
 
-        $this->recipient->blockFriend($this->sender);
+        $recipient->blockFriend($sender);
     }
 
     /** @test */
     public function friend_is_unblocked()
     {
-        $this->sender->befriend($this->recipient);
-        $this->recipient->acceptFriendRequest($this->sender);
-        $this->recipient->blockFriend($this->sender);
+        $sender    = createUser();
+        $recipient = createUser();
+
+        $sender->befriend($recipient);
+        $recipient->acceptFriendRequest($sender);
+        $recipient->blockFriend($sender);
         Event::shouldReceive('dispatch')->once()->withArgs(['friendships.unblocked', Mockery::any()]);
 
-        $this->recipient->unblockFriend($this->sender);
+        $recipient->unblockFriend($sender);
     }
 
     /** @test */
     public function friendship_is_cancelled()
     {
-        $this->sender->befriend($this->recipient);
-        $this->recipient->acceptFriendRequest($this->sender);
+        $sender    = createUser();
+        $recipient = createUser();
+
+        $sender->befriend($recipient);
+        $recipient->acceptFriendRequest($sender);
         Event::shouldReceive('dispatch')->once()->withArgs(['friendships.cancelled', Mockery::any()]);
 
-        $this->recipient->unfriend($this->sender);
+        $recipient->unfriend($sender);
     }
 }
