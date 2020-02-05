@@ -8,7 +8,7 @@
  * @return \Illuminate\Database\Eloquent\Collection|\App\User[]|\App\User
  */
 function createUser($overrides = [], $amount = 1){
-    $users = factory(Hootlex\Friendships\User::class, $amount)->create($overrides);
+    $users = factory(Demency\Friendships\User::class, $amount)->create($overrides);
     if (count($users) == 1) {
         return $users->first();
     }

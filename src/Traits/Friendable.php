@@ -1,29 +1,29 @@
 <?php
 
-namespace Hootlex\Friendships\Traits;
+namespace Demency\Friendships\Traits;
 
-use Hootlex\Friendships\Events\Accepted;
-use Hootlex\Friendships\Events\Blocked;
-use Hootlex\Friendships\Events\Cancelled;
-use Hootlex\Friendships\Events\Denied;
-use Hootlex\Friendships\Events\Sent;
-use Hootlex\Friendships\Events\Unblocked;
-use Hootlex\Friendships\Models\Friendship;
-use Hootlex\Friendships\Models\FriendFriendshipGroups;
-use Hootlex\Friendships\Status;
+use Demency\Friendships\Events\Accepted;
+use Demency\Friendships\Events\Blocked;
+use Demency\Friendships\Events\Cancelled;
+use Demency\Friendships\Events\Denied;
+use Demency\Friendships\Events\Sent;
+use Demency\Friendships\Events\Unblocked;
+use Demency\Friendships\Models\Friendship;
+use Demency\Friendships\Models\FriendFriendshipGroups;
+use Demency\Friendships\Status;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Event;
 
 /**
  * Class Friendable
- * @package Hootlex\Friendships\Traits
+ * @package Demency\Friendships\Traits
  */
 trait Friendable
 {
     /**
      * @param Model $recipient
      *
-     * @return \Hootlex\Friendships\Models\Friendship|false
+     * @return \Demency\Friendships\Models\Friendship|false
      */
     public function befriend(Model $recipient)
     {
@@ -158,7 +158,7 @@ trait Friendable
     /**
      * @param Model $recipient
      *
-     * @return \Hootlex\Friendships\Models\Friendship
+     * @return \Demency\Friendships\Models\Friendship
      */
     public function blockFriend(Model $recipient)
     {
@@ -190,7 +190,7 @@ trait Friendable
     /**
      * @param Model $recipient
      *
-     * @return \Hootlex\Friendships\Models\Friendship
+     * @return \Demency\Friendships\Models\Friendship
      */
     public function getFriendship(Model $recipient)
     {

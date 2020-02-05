@@ -1,5 +1,5 @@
 {
-    "name": "hootlex/laravel-friendships",
+    "name": "demency/laravel-friendships",
     "description": "This package gives Eloquent models the ability to manage their friendships.",
     "keywords": ["laravel", "friendships", "friend-system", "friends", "eloquent"],
     "license": "MIT",
@@ -7,6 +7,10 @@
         {
             "name": "Hootlex",
             "email": "hootlex@icloud.com"
+        },
+        {
+            "name": "Ian Torres",
+            "email": "iantorres@outlook.com"
         }
     ],
     "autoload-dev": {
@@ -33,13 +37,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Hootlex\\Friendships\\": "src/"
+            "Demency\\Friendships\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Hootlex\\Friendships\\FriendshipsServiceProvider"
+                "Demency\\Friendships\\FriendshipsServiceProvider"
             ]
         }
     },

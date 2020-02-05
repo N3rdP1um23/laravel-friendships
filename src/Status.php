@@ -1,6 +1,6 @@
 <?php
 
-namespace Hootlex\Friendships;
+namespace Demency\Friendships;
 
 /**
  * Class Status.

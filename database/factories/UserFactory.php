@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(\Hootlex\Friendships\User::class, function (Faker $faker) {
+$factory->define(\Demency\Friendships\User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,

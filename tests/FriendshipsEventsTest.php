@@ -2,12 +2,12 @@
 
 namespace Tests;
 
-use Hootlex\Friendships\Events\Accepted;
-use Hootlex\Friendships\Events\Blocked;
-use Hootlex\Friendships\Events\Cancelled;
-use Hootlex\Friendships\Events\Denied;
-use Hootlex\Friendships\Events\Sent;
-use Hootlex\Friendships\Events\Unblocked;
+use Demency\Friendships\Events\Accepted;
+use Demency\Friendships\Events\Blocked;
+use Demency\Friendships\Events\Cancelled;
+use Demency\Friendships\Events\Denied;
+use Demency\Friendships\Events\Sent;
+use Demency\Friendships\Events\Unblocked;
 use Illuminate\Support\Facades\Event;
 use Orchestra\Testbench\TestCase;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Hootlex\Friendships;
+namespace Demency\Friendships;
 
-use Hootlex\Friendships\Traits\Friendable;
+use Demency\Friendships\Traits\Friendable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;

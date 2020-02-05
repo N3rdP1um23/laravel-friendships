@@ -1,8 +1,8 @@
 <?php
 
-namespace Hootlex\Friendships\Events;
+namespace Demency\Friendships\Events;
 
-use Hootlex\Friendships\Traits\Friendable;
+use Demency\Friendships\Traits\Friendable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
