@@ -1,4 +1,4 @@
-# Laravel 5 Friendships
+# Laravel 6 Friendships Package
 
 [![Build Status](https://travis-ci.org/demency/laravel-friendships.svg?branch=master)](https://travis-ci.org/demency/laravel-friendships)  [![codecov](https://codecov.io/gh/demency/laravel-friendships/branch/master/graph/badge.svg)](https://codecov.io/gh/demency/laravel-friendships)  [![Code Climate](https://codeclimate.com/github/demency/laravel-friendships/badges/gpa.svg)](https://codeclimate.com/github/demency/laravel-friendships) [![Test Coverage](https://codeclimate.com/github/demency/laravel-friendships/badges/coverage.svg)](https://codeclimate.com/github/demency/laravel-friendships/coverage) [![Total Downloads](https://img.shields.io/packagist/dt/demency/laravel-friendships.svg?style=flat)](https://packagist.org/packages/demency/laravel-friendships) [![Version](https://img.shields.io/packagist/v/demency/laravel-friendships.svg?style=flat)](https://packagist.org/packages/demency/laravel-friendships) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
 
@@ -21,10 +21,6 @@ First, install the package through Composer.
 composer require demency/laravel-friendships
 ```
 
-If you are using Laravel < 5.5, you need to add Demency\Friendships\FriendshipsServiceProvider to your `config/app.php` providers array:
-```php
-Demency\Friendships\FriendshipsServiceProvider::class,
-```
 Publish config and migrations
 ```
 php artisan vendor:publish --provider="Demency\Friendships\FriendshipsServiceProvider"
@@ -233,12 +229,12 @@ This is the list of the events fired by default for each action
 
 |Event name            |Fired                            |
 |----------------------|---------------------------------|
-|friendships.sent      |When a friend request is sent    |
-|friendships.accepted  |When a friend request is accepted|
-|friendships.denied    |When a friend request is denied  |
-|friendships.blocked   |When a friend is blocked         |
-|friendships.unblocked |When a friend is unblocked       |
-|friendships.cancelled |When a friendship is cancelled   |
+|Demency\Friendships\Events\Sent      |When a friend request is sent    |
+|Demency\Friendships\Events\Accepted  |When a friend request is accepted|
+|Demency\Friendships\Events\Denied    |When a friend request is denied  |
+|Demency\Friendships\Events\Blocked   |When a friend is blocked         |
+|Demency\Friendships\Events\Unblocked |When a friend is unblocked       |
+|Demency\Friendships\Events\Cancelled |When a friendship is cancelled   |
 
 ## Contributing
 See the [CONTRIBUTING](CONTRIBUTING.md) guide.

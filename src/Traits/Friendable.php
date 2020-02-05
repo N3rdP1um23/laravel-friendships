@@ -469,14 +469,6 @@ trait Friendable
         return $this->morphMany(Friendship::class, 'sender');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function groups()
-    {
-        return $this->morphMany(FriendFriendshipGroups::class, 'friend');
-    }
-
     protected function getOrPaginate($builder, $perPage)
     {
         if ($perPage == 0) {
