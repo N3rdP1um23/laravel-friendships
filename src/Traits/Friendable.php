@@ -2,6 +2,12 @@
 
 namespace Hootlex\Friendships\Traits;
 
+use Hootlex\Friendships\Events\Accepted;
+use Hootlex\Friendships\Events\Blocked;
+use Hootlex\Friendships\Events\Cancelled;
+use Hootlex\Friendships\Events\Denied;
+use Hootlex\Friendships\Events\Sent;
+use Hootlex\Friendships\Events\Unblocked;
 use Hootlex\Friendships\Models\Friendship;
 use Hootlex\Friendships\Models\FriendFriendshipGroups;
 use Hootlex\Friendships\Status;
@@ -28,7 +34,7 @@ trait Friendable
             'status' => Status::PENDING,
         ]);
         $this->friends()->save($friendship);
-        Event::dispatch('friendships.sent', [$this, $recipient]);
+        event(new Sent($this, $recipient));
         return $friendship;
     }
 
@@ -40,9 +46,7 @@ trait Friendable
     public function unfriend(Model $recipient)
     {
         $deleted = $this->findFriendship($recipient)->delete();
-
-        Event::dispatch('friendships.cancelled', [$this, $recipient]);
-
+        event(new Cancelled($this, $recipient));
         return $deleted;
     }
 
@@ -86,7 +90,7 @@ trait Friendable
         $updated = $this->findFriendship($recipient)->whereRecipient($this)->update([
             'status' => Status::ACCEPTED,
         ]);
-        Event::dispatch('friendships.accepted', [$this, $recipient]);
+        event(new Accepted($this, $recipient));
         return $updated;
     }
 
@@ -100,7 +104,7 @@ trait Friendable
         $updated = $this->findFriendship($recipient)->whereRecipient($this)->update([
             'status' => Status::DENIED,
         ]);
-        Event::dispatch('friendships.denied', [$this, $recipient]);
+        event(new Denied($this, $recipient));
         return $updated;
     }
 
@@ -163,15 +167,11 @@ trait Friendable
         if (!$this->isBlockedBy($recipient)) {
             $this->findFriendship($recipient)->delete();
         }
-
         $friendship = (new Friendship)->fillRecipient($recipient)->fill([
             'status' => Status::BLOCKED,
         ]);
-
         $this->friends()->save($friendship);
-
-        Event::dispatch('friendships.blocked', [$this, $recipient]);
-
+        event(new Blocked($this, $recipient));
         return $friendship;
     }
 
@@ -183,9 +183,7 @@ trait Friendable
     public function unblockFriend(Model $recipient)
     {
         $deleted = $this->findFriendship($recipient)->whereSender($this)->delete();
-
-        Event::dispatch('friendships.unblocked', [$this, $recipient]);
-
+        event(new Unblocked($this, $recipient));
         return $deleted;
     }
 
