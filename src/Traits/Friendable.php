@@ -10,8 +10,14 @@ use Demency\Friendships\Events\Sent;
 use Demency\Friendships\Events\Unblocked;
 use Demency\Friendships\Models\Friendship;
 use Demency\Friendships\Models\FriendFriendshipGroups;
+use Demency\Friendships\Repositories\PaginateRepository;
 use Demency\Friendships\Status;
+use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
 
 /**
@@ -462,7 +468,7 @@ trait Friendable
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return MorphMany
      */
     public function friends()
     {
@@ -475,5 +481,78 @@ trait Friendable
             return $builder->get();
         }
         return $builder->paginate($perPage);
+    }
+
+    /**
+     * Get blocked friends.
+     *
+     * @param int $resultsPerPage
+     * @param string $paginateType
+     * @return LengthAwarePaginator|Paginator|Collection
+     * @throws Exception
+     */
+    public function blockedFriends($resultsPerPage = 0, $paginateType = 'default')
+    {
+        return PaginateRepository::resolvePaginator($this->scopedStatusQuery(Status::BLOCKED), $resultsPerPage, $paginateType);
+    }
+
+    /**
+     * Get accepted friends
+     *
+     * @param int $resultsPerPage
+     * @param string $paginateType
+     * @return LengthAwarePaginator|Paginator|Collection
+     * @throws Exception
+     */
+    public function acceptedFriends($resultsPerPage = 0, $paginateType = 'default')
+    {
+        return PaginateRepository::resolvePaginator($this->scopedStatusQuery(Status::ACCEPTED), $resultsPerPage, $paginateType);
+    }
+
+    /**
+     * Get denied friends
+     *
+     * @param int $resultsPerPage
+     * @param string $paginateType
+     * @return LengthAwarePaginator|Paginator|Collection
+     * @throws Exception
+     */
+    public function deniedFriends($resultsPerPage = 0, $paginateType = 'default')
+    {
+        return PaginateRepository::resolvePaginator($this->scopedStatusQuery(Status::DENIED), $resultsPerPage, $paginateType);
+    }
+
+
+    /**
+     * Get accepted friends
+     *
+     * @param int $resultsPerPage
+     * @param string $paginateType
+     * @return LengthAwarePaginator|Paginator|Collection
+     * @throws Exception
+     */
+    public function pendingFriends($resultsPerPage = 0, $paginateType = 'default')
+    {
+        return PaginateRepository::resolvePaginator($this->scopedStatusQuery(Status::PENDING), $resultsPerPage, $paginateType);
+    }
+
+    /**
+     * Get scoped query builder based on status.
+     *
+     * @param $status
+     * @return MorphMany
+     * @throws Exception
+     */
+    public function scopedStatusQuery($status)
+    {
+        if (!in_array($status, [
+            Status::ACCEPTED,
+            Status::DENIED,
+            Status::BLOCKED,
+            Status::PENDING
+        ])) {
+            throw new Exception("Status parameter isn't a valid status type.");
+        }
+        return $this->friends()->where('status', $status)->orWhere('user_id');
     }
 }

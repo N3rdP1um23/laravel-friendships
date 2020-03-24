@@ -28,6 +28,80 @@ class FriendshipsTest extends TestCase
         $app['config']->set('friendships.groups.family', 2);
     }
 
+    /** @test */
+    public function friendable_can_view_own_accepted_friends()
+    {
+        $sender    = createUser();
+        $recipient = createUser();
+        $sender->befriend($recipient);
+        $recipient->acceptFriendRequest($sender);
+
+        $this->assertEquals(1, $sender->acceptedFriends()->count());
+    }
+
+    /** @test */
+    public function friendable_can_view_own_blocked_friends()
+    {
+        $sender    = createUser();
+        $recipient = createUser();
+        $recipient->blockFriend($sender);
+        $this->assertEquals(1, $recipient->blockedFriends()->count());
+    }
+
+    /** @test */
+    public function friendable_can_view_own_pending_friends()
+    {
+        $sender    = createUser();
+        $recipient = createUser();
+        $recipient->befriend($sender);
+        $this->assertEquals(1, $recipient->pendingFriends()->count());
+    }
+
+    /** @test */
+    public function friendable_can_view_own_denied_friends()
+    {
+        $sender    = createUser();
+        $recipient = createUser();
+        $sender->befriend($recipient);
+        $recipient->denyFriendRequest($sender);
+        $this->assertEquals(1, $sender->deniedFriends()->count());
+    }
+
+    /** @test */
+    public function friendable_can_get_simple_paginated_friends()
+    {
+        $sender    = createUser();
+        $recipient = createUser();
+        $sender->befriend($recipient);
+        $recipient->acceptFriendRequest($sender);
+        $friends = $sender->acceptedFriends(10, 'simple');
+        $this->assertTrue(get_class($friends) === 'Illuminate\Pagination\Paginator');
+        $this->assertEquals(1, $friends->count());
+    }
+
+    /** @test */
+    public function friendable_can_get_default_paginated_friends()
+    {
+        $sender    = createUser();
+        $recipient = createUser();
+        $sender->befriend($recipient);
+        $recipient->acceptFriendRequest($sender);
+        $friends = $sender->acceptedFriends(10, 'default');
+        $this->assertTrue(get_class($friends) === 'Illuminate\Pagination\LengthAwarePaginator');
+        $this->assertEquals(1, $friends->count());
+    }
+
+    /** @test */
+    public function friendable_can_get_non_paginated_friends()
+    {
+        $sender    = createUser();
+        $recipient = createUser();
+        $sender->befriend($recipient);
+        $recipient->acceptFriendRequest($sender);
+        $friends = $sender->acceptedFriends();
+        $this->assertTrue(get_class($friends) === 'Illuminate\Database\Eloquent\Collection');
+        $this->assertEquals(1, $friends->count());
+    }
 
     /** @test */
     public function user_can_send_a_friend_request()

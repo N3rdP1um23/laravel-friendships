@@ -179,6 +179,25 @@ $user->getFriends($perPage = 20, $group_name);
 $user->getMutualFriends($otherUser, $perPage = 20);
 ```
 
+#### Get friends using advanced paginated and scoped status
+
+```php
+// Methods usages (Status available: pending, denied, blocked and accepted.)
+$user->{status}Friends($resultsPerPage = 0, $paginationType = 'none');
+
+// Example #1: (Get accepted friends using default paginator with 25 results per page).
+$user->acceptedFriends(25, 'default');
+
+// Example #2: (Get pending friends using simple paginator with 10 results per page).
+$user->pendingFriends(10, 'simple');
+
+// Example #3: (Get all denied friends without pagination).
+$user->deniedFriends();
+
+// Example #3: (Get denied friends using default paginator with 30 results per page).
+$user->blockedFriends(30);
+```
+
 ## Friend groups
 The friend groups are defined in the `config/friendships.php` file.
 The package comes with a few default groups.
