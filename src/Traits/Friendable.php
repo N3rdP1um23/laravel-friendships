@@ -493,7 +493,7 @@ trait Friendable
      */
     public function blockedFriends($resultsPerPage = 0, $paginateType = 'default')
     {
-        return PaginateRepository::resolvePaginator($this->scopedQuery(Status::BLOCKED), $resultsPerPage, $paginateType);
+        return PaginateRepository::resolvePaginator($this->scopedStatusQuery(Status::BLOCKED), $resultsPerPage, $paginateType);
     }
 
     /**
@@ -506,7 +506,7 @@ trait Friendable
      */
     public function acceptedFriends($resultsPerPage = 0, $paginateType = 'default')
     {
-        return PaginateRepository::resolvePaginator($this->scopedQuery(Status::ACCEPTED), $resultsPerPage, $paginateType);
+        return PaginateRepository::resolvePaginator($this->scopedStatusQuery(Status::ACCEPTED), $resultsPerPage, $paginateType);
     }
 
     /**
@@ -519,7 +519,7 @@ trait Friendable
      */
     public function deniedFriends($resultsPerPage = 0, $paginateType = 'default')
     {
-        return PaginateRepository::resolvePaginator($this->scopedQuery(Status::DENIED), $resultsPerPage, $paginateType);
+        return PaginateRepository::resolvePaginator($this->scopedStatusQuery(Status::DENIED), $resultsPerPage, $paginateType);
     }
 
 
@@ -533,15 +533,17 @@ trait Friendable
      */
     public function pendingFriends($resultsPerPage = 0, $paginateType = 'default')
     {
-        return PaginateRepository::resolvePaginator($this->scopedQuery(Status::PENDING), $resultsPerPage, $paginateType);
+        return PaginateRepository::resolvePaginator($this->scopedStatusQuery(Status::PENDING), $resultsPerPage, $paginateType);
     }
 
     /**
+     * Get scoped query builder based on status.
+     *
      * @param $status
      * @return MorphMany
      * @throws Exception
      */
-    public function scopedQuery($status)
+    public function scopedStatusQuery($status)
     {
         if (!in_array($status, [
             Status::ACCEPTED,
