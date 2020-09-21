@@ -2,8 +2,11 @@
 
 [![Build Status](https://travis-ci.org/n3rdp1um23/laravel-friendships.svg?branch=master)](https://travis-ci.org/n3rdp1um23/laravel-friendships)  [![codecov](https://codecov.io/gh/n3rdp1um23/laravel-friendships/branch/master/graph/badge.svg)](https://codecov.io/gh/n3rdp1um23/laravel-friendships)  [![Code Climate](https://codeclimate.com/github/n3rdp1um23/laravel-friendships/badges/gpa.svg)](https://codeclimate.com/github/n3rdp1um23/laravel-friendships) [![Test Coverage](https://codeclimate.com/github/n3rdp1um23/laravel-friendships/badges/coverage.svg)](https://codeclimate.com/github/n3rdp1um23/laravel-friendships/coverage) [![Total Downloads](https://img.shields.io/packagist/dt/n3rdp1um23/laravel-friendships.svg?style=flat)](https://packagist.org/packages/n3rdp1um23/laravel-friendships) [![Version](https://img.shields.io/packagist/v/n3rdp1um23/laravel-friendships.svg?style=flat)](https://packagist.org/packages/n3rdp1um23/laravel-friendships) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
 
-This repository is currently a copy and backup of Demency/laravel-friendships (which has since been removed).
+--
 
+This repository is currently a copy and backup of Demency/laravel-friendships (which has been removed). I plan on supporting the package going forward.
+
+--
 
 This package gives Eloquent models the ability to manage their friendships.
 You can easily design a Facebook like Friend System.
