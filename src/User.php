@@ -1,8 +1,8 @@
 <?php
 
-namespace Demency\Friendships;
+namespace N3rdP1um23\Friendships;
 
-use Demency\Friendships\Traits\Friendable;
+use N3rdP1um23\Friendships\Traits\Friendable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;

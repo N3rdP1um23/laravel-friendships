@@ -1,5 +1,5 @@
 {
-    "name": "demency/laravel-friendships",
+    "name": "n3rdp1um23/laravel-friendships",
     "description": "This package gives Eloquent models the ability to manage their friendships.",
     "keywords": ["laravel", "friendships", "friend-system", "friends", "eloquent"],
     "license": "MIT",
@@ -37,13 +37,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Demency\\Friendships\\": "src/"
+            "N3rdP1um23\\Friendships\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Demency\\Friendships\\FriendshipsServiceProvider"
+                "N3rdP1um23\\Friendships\\FriendshipsServiceProvider"
             ]
         }
     },

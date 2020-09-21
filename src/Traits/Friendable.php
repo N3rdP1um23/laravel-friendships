@@ -1,17 +1,17 @@
 <?php
 
-namespace Demency\Friendships\Traits;
+namespace N3rdP1um23\Friendships\Traits;
 
-use Demency\Friendships\Events\Accepted;
-use Demency\Friendships\Events\Blocked;
-use Demency\Friendships\Events\Cancelled;
-use Demency\Friendships\Events\Denied;
-use Demency\Friendships\Events\Sent;
-use Demency\Friendships\Events\Unblocked;
-use Demency\Friendships\Models\Friendship;
-use Demency\Friendships\Models\FriendFriendshipGroups;
-use Demency\Friendships\Repositories\PaginateRepository;
-use Demency\Friendships\Status;
+use N3rdP1um23\Friendships\Events\Accepted;
+use N3rdP1um23\Friendships\Events\Blocked;
+use N3rdP1um23\Friendships\Events\Cancelled;
+use N3rdP1um23\Friendships\Events\Denied;
+use N3rdP1um23\Friendships\Events\Sent;
+use N3rdP1um23\Friendships\Events\Unblocked;
+use N3rdP1um23\Friendships\Models\Friendship;
+use N3rdP1um23\Friendships\Models\FriendFriendshipGroups;
+use N3rdP1um23\Friendships\Repositories\PaginateRepository;
+use N3rdP1um23\Friendships\Status;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -22,14 +22,14 @@ use Illuminate\Support\Facades\Event;
 
 /**
  * Class Friendable
- * @package Demency\Friendships\Traits
+ * @package N3rdP1um23\Friendships\Traits
  */
 trait Friendable
 {
     /**
      * @param Model $recipient
      *
-     * @return \Demency\Friendships\Models\Friendship|false
+     * @return \N3rdP1um23\Friendships\Models\Friendship|false
      */
     public function befriend(Model $recipient)
     {
@@ -164,7 +164,7 @@ trait Friendable
     /**
      * @param Model $recipient
      *
-     * @return \Demency\Friendships\Models\Friendship
+     * @return \N3rdP1um23\Friendships\Models\Friendship
      */
     public function blockFriend(Model $recipient)
     {
@@ -196,7 +196,7 @@ trait Friendable
     /**
      * @param Model $recipient
      *
-     * @return \Demency\Friendships\Models\Friendship
+     * @return \N3rdP1um23\Friendships\Models\Friendship
      */
     public function getFriendship(Model $recipient)
     {

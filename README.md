@@ -1,6 +1,8 @@
 # Laravel 6 Friendships Package
 
-[![Build Status](https://travis-ci.org/demency/laravel-friendships.svg?branch=master)](https://travis-ci.org/demency/laravel-friendships)  [![codecov](https://codecov.io/gh/demency/laravel-friendships/branch/master/graph/badge.svg)](https://codecov.io/gh/demency/laravel-friendships)  [![Code Climate](https://codeclimate.com/github/demency/laravel-friendships/badges/gpa.svg)](https://codeclimate.com/github/demency/laravel-friendships) [![Test Coverage](https://codeclimate.com/github/demency/laravel-friendships/badges/coverage.svg)](https://codeclimate.com/github/demency/laravel-friendships/coverage) [![Total Downloads](https://img.shields.io/packagist/dt/demency/laravel-friendships.svg?style=flat)](https://packagist.org/packages/demency/laravel-friendships) [![Version](https://img.shields.io/packagist/v/demency/laravel-friendships.svg?style=flat)](https://packagist.org/packages/demency/laravel-friendships) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
+[![Build Status](https://travis-ci.org/n3rdp1um23/laravel-friendships.svg?branch=master)](https://travis-ci.org/n3rdp1um23/laravel-friendships)  [![codecov](https://codecov.io/gh/n3rdp1um23/laravel-friendships/branch/master/graph/badge.svg)](https://codecov.io/gh/n3rdp1um23/laravel-friendships)  [![Code Climate](https://codeclimate.com/github/n3rdp1um23/laravel-friendships/badges/gpa.svg)](https://codeclimate.com/github/n3rdp1um23/laravel-friendships) [![Test Coverage](https://codeclimate.com/github/n3rdp1um23/laravel-friendships/badges/coverage.svg)](https://codeclimate.com/github/n3rdp1um23/laravel-friendships/coverage) [![Total Downloads](https://img.shields.io/packagist/dt/n3rdp1um23/laravel-friendships.svg?style=flat)](https://packagist.org/packages/n3rdp1um23/laravel-friendships) [![Version](https://img.shields.io/packagist/v/n3rdp1um23/laravel-friendships.svg?style=flat)](https://packagist.org/packages/n3rdp1um23/laravel-friendships) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
+
+This repository is currently a copy and backup of Demency/laravel-friendships (which has since been removed).
 
 
 This package gives Eloquent models the ability to manage their friendships.
@@ -18,12 +20,12 @@ You can easily design a Facebook like Friend System.
 First, install the package through Composer.
 
 ```php
-composer require demency/laravel-friendships
+composer require n3rdp1um23/laravel-friendships
 ```
 
 Publish config and migrations
 ```
-php artisan vendor:publish --provider="Demency\Friendships\FriendshipsServiceProvider"
+php artisan vendor:publish --provider="N3rdP1um23\Friendships\FriendshipsServiceProvider"
 ```
 Configure the published config in
 ```
@@ -36,7 +38,7 @@ php artisan migrate
 
 ## Setup a Model
 ```php
-use Demency\Friendships\Traits\Friendable;
+use N3rdP1um23\Friendships\Traits\Friendable;
 class User extends Model
 {
     use Friendable;
@@ -45,7 +47,7 @@ class User extends Model
 ```
 
 ## How to use
-[Check the Test file to see the package in action](https://github.com/demency/laravel-friendships/blob/master/tests/FriendshipsTest.php)
+[Check the Test file to see the package in action](https://github.com/n3rdp1um23/laravel-friendships/blob/master/tests/FriendshipsTest.php)
 
 #### Send a Friend Request
 ```php
@@ -248,12 +250,12 @@ This is the list of the events fired by default for each action
 
 |Event name            |Fired                            |
 |----------------------|---------------------------------|
-|Demency\Friendships\Events\Sent      |When a friend request is sent    |
-|Demency\Friendships\Events\Accepted  |When a friend request is accepted|
-|Demency\Friendships\Events\Denied    |When a friend request is denied  |
-|Demency\Friendships\Events\Blocked   |When a friend is blocked         |
-|Demency\Friendships\Events\Unblocked |When a friend is unblocked       |
-|Demency\Friendships\Events\Cancelled |When a friendship is cancelled   |
+|N3rdP1um23\Friendships\Events\Sent      |When a friend request is sent    |
+|N3rdP1um23\Friendships\Events\Accepted  |When a friend request is accepted|
+|N3rdP1um23\Friendships\Events\Denied    |When a friend request is denied  |
+|N3rdP1um23\Friendships\Events\Blocked   |When a friend is blocked         |
+|N3rdP1um23\Friendships\Events\Unblocked |When a friend is unblocked       |
+|N3rdP1um23\Friendships\Events\Cancelled |When a friendship is cancelled   |
 
 ## Contributing
 See the [CONTRIBUTING](CONTRIBUTING.md) guide.

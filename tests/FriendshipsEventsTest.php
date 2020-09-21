@@ -2,12 +2,12 @@
 
 namespace Tests;
 
-use Demency\Friendships\Events\Accepted;
-use Demency\Friendships\Events\Blocked;
-use Demency\Friendships\Events\Cancelled;
-use Demency\Friendships\Events\Denied;
-use Demency\Friendships\Events\Sent;
-use Demency\Friendships\Events\Unblocked;
+use N3rdP1um23\Friendships\Events\Accepted;
+use N3rdP1um23\Friendships\Events\Blocked;
+use N3rdP1um23\Friendships\Events\Cancelled;
+use N3rdP1um23\Friendships\Events\Denied;
+use N3rdP1um23\Friendships\Events\Sent;
+use N3rdP1um23\Friendships\Events\Unblocked;
 use Illuminate\Support\Facades\Event;
 use Orchestra\Testbench\TestCase;
 
