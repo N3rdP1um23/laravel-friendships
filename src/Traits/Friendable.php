@@ -553,6 +553,6 @@ trait Friendable
         ])) {
             throw new Exception("Status parameter isn't a valid status type.");
         }
-        return $this->friends()->where('status', $status)->orWhere('user_id');
+        return $this->friends()->where('status', $status);
     }
 }
